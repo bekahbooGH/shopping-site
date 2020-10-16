@@ -6,15 +6,16 @@ put melons in a shopping cart.
 Authors: Joel Burton, Christian Fernandez, Meggie Mahnken, Katie Byers.
 """
 
-from flask import Flask, render_template, redirect, flash
+from flask import Flask, render_template, redirect, flash, session
 import jinja2
 
 import melons
 
 app = Flask(__name__)
+app.secret_key = "RANDOM SECRET KEY"
 
 # A secret key is needed to use Flask sessioning features
-app.secret_key = 'this-should-be-something-unguessable'
+# app.secret_key = 'this-should-be-something-unguessable'
 
 # Normally, if you refer to an undefined variable in a Jinja template,
 # Jinja silently ignores this. This makes debugging difficult, so we'll
@@ -25,6 +26,17 @@ app.jinja_env.undefined = jinja2.StrictUndefined
 # This configuration option makes the Flask interactive debugger
 # more useful (you should remove this line in production though)
 app.config['PRESERVE_CONTEXT_ON_EXCEPTION'] = True
+
+# @app.route('/melon/<melon_id>')
+# def set_session(melon_id):
+
+#     session['cart'] = {}
+
+#     # if melon_id in 'cart':
+#     session['cart'[melon_id]] = 'cart'.get(melon_id, 0) + 1
+#     flash("added to cart!")
+#     return redirect('/cart')
+
 
 
 @app.route("/")
